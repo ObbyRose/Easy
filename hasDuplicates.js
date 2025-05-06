@@ -132,7 +132,10 @@ function moveAtoms(position, moves) {
 * Output: { error: 'Row 2 has duplicates' }
 */
 function validateSudoku(grid) {
-   // Your code here
+    function hasDuplicates(arr) {
+        const nums = arr.filter (n >= n !== 0)
+        return new Set(nums.size) !== nums.length
+    }
 }
 
 
