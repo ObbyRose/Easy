@@ -77,9 +77,16 @@ function classifyPackage(weight) {
 * Output: true
 */
 function areBlocksInterlocked(blockA, blockB) {
-   // Your code here
+    if (!Array.isArray(blockA) || !Array.isArray(blockB) || blockA.length !== blockB.length) {
+        return "Invalid input: make sure both are arrays and have the same length";
+    }
+    for (let i = 0; i < blockA.length; i++) {
+        if (blockA[i] === 1 && blockB[i] === 1) {
+        return false;
+        }
+    }
+    return true;
 }
-
 
 /**
 * ===================================================
@@ -92,7 +99,25 @@ function areBlocksInterlocked(blockA, blockB) {
 * Output: { x: -1, y: 2 }
 */
 function moveAtoms(position, moves) {
-   // Your code here
+    if (typeof position.x !== 'number' || typeof position.y !== 'number') {
+        return "Invalid position: x and y should be numbers";
+    }
+    const directions = {
+        up: { x: 0, y: 1 },
+        down: { x: 0, y: -1 },
+        left: { x: -1, y: 0 },
+        right: { x: 1, y: 0 },
+    };
+    for (let i = 0; i < moves.length; i++){
+        if (directions[moves[i]]) {
+            position.x += directions[moves[i]].x;
+            position.y += directions[moves[i]].y;
+        }
+        else {
+            return "Invalid move: " + moves[i];
+        }
+    } 
+    return position;
 }
 
 
