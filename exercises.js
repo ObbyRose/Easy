@@ -9,20 +9,15 @@
  * Output: -2
  */
 function findTemperature(temps) {
-    if (!temps || temps.length === 0) return null;
-
-    return temps.reduce((closest, temp) => {
-        const absClosest = Math.abs(closest);
-        const absTemp = Math.abs(temp);
-
-        if (
-            absTemp < absClosest ||
-            (absTemp === absClosest && temp > closest)
-        ) {
-            return temp;
+if (!temps || temps.length === 0) return null;
+    let closest = temps[0];
+    for (let i = 1; i < temps.length; i++) {
+        if(Math.abs(temps[i]) < Math.abs(closest) || 
+            (Math.abs(temps[i]) === Math.abs(closest) && temps[i] > closest)) {
+            closest = temps[i];
         }
-        return closest;
-    }, temps[0]);
+    }
+    return closest;
 }
 
 
@@ -38,24 +33,22 @@ function findTemperature(temps) {
  * Output: "Light"
  */
 const threshold = {
-    light: 5,
-    medium: 10,
-};
+    light: 5, 
+    medium: 10
+}
+
 function classifyPackage(weight) {
-    if (typeof weight !== 'number') return null;
-    if (weight <= 5 ) return "Light"
-    else if (weight <= 10) return "Medium"
-    else return "Heavy"
-
+    if (typeof weight !== 'number' || isNaN(weight)) {
+        return 'Invalid weight';
+    }
+    if (weight > threshold.medium) {
+        return 'Heavy';
+    } else if (weight > threshold.light) {
+        return 'Medium';
+    } else {
+        return 'Light';
+    }
 }
-
-function classifyPackageWithThreshold(weight, threshold) {
-    if (typeof weight !== 'number') return null;
-    if (weight <= threshold.light) return `Light`
-    else if (weight <= threshold.medium) return `Medium`
-    else return `Heavy`
-}
-
 
 /**
  * ===================================================
@@ -70,15 +63,13 @@ function classifyPackageWithThreshold(weight, threshold) {
 function areBlocksInterlocked(blockA, blockB) {
     if (!Array.isArray(blockA) || !Array.isArray(blockB)) return false;
     if (blockA.length !== blockB.length) return false;
-
+    let hasInterlock = false;
     for (let i = 0; i < blockA.length; i++) {
-        if (blockA[i] === 1 && blockB[i] === 1) {
-            return false; // overlap — cannot interlock
-        }
+        if (blockA[i] === 1 && blockB[i] === 1) return false;
+        if (blockA[i] === 1 || blockB[i] === 1) hasInterlock = true;
     }
-    return true; // they interlock safely
+    return hasInterlock;
 }
-
 // ==============================
 // 1. Two Sum
 // ==============================
@@ -90,21 +81,33 @@ Example:
 Input: nums = [2,7,11,15], target = 9
 Output: [0,1] (because nums[0] + nums[1] == 9)
 */
+
+// valid answer but not optimal
 function twoSum(nums, target) {
-    const map = new Map(); // Line 1
-
-    for (let i = 0; i < nums.length; i++) { // Line 2
-        const complement = target - nums[i]; // Line 3
-
-        if (map.has(complement)) { // Line 4
-            return [map.get(complement), i]; // Line 5
+    let indices = []
+    for(let i = 0; i < nums.length; i++) {
+        for (let j = i + 1; j < nums.length; j++){
+            if (nums[i] + nums[j] === target) {
+                indices.push(i, j);
+                return indices;
+            }
         }
-
-        map.set(nums[i], i); // Line 6
     }
-
-    return null; // Line 7
 }
+// optimal answer
+function twoSum(nums, target) {
+    const map = new Map(); 
+    
+
+    for (let i = 0; i < nums.length; i++) {
+        const complement = target - nums[i];
+        if (map.has(complement)) {
+            return [map.get(complement), i];
+        }
+        map.set(nums[i], i);
+    }
+}
+
 
     
     
