@@ -9,16 +9,15 @@
  * Output: -2
  */
 function findTemperature(temps) {
-if (!temps || temps.length === 0) return null;
+    if (!temps || temps.length === 0) return null;
     let closest = temps[0];
     for (let i = 1; i < temps.length; i++) {
-        if(Math.abs(temps[i]) < Math.abs(closest) || 
-            (Math.abs(temps[i]) === Math.abs(closest) && temps[i] > closest)) {
-            closest = temps[i];
+        if(Math.abs(closest) > Math.abs(temps[i]) || Math.abs(temps[i]) === Math.abs(closest) && temps[i] > closest ){
+            closest = temps[i]
         }
-    }
+    };
     return closest;
-}
+};
 
 
 
@@ -471,19 +470,17 @@ Do not convert the integer to a string.
 Input: x = 121
 Output: true
 */
-function isPalindromeNumber(x) {
-    if (x < 0) return false;
-
-    let original = x;
+function isPalindromeNumber(num) {
+    let original = num;
     let reversed = 0;
 
-    while (x > 0) {
-        reversed = reversed * 10 + x % 10;
-        x = Math.floor(x / 10);
-    }
-
-    return reversed === original;
-}
+    while(original > 0) {
+        const digit = original % 10
+        reversed = reversed * 10 + digit
+        original = Math.floor (original / 10)
+    };
+    return num === reversed;
+};
 
 
 // ==========================================
@@ -545,8 +542,8 @@ Output: 5
 */
 function lengthOfLastWord(s) {
     s = s.trim();
-    const words = s.split(" ");
-    return words[words.length - 1].length;
+    const words = s.split(" ")
+    return words[words.length - 1].length
 }
 
 // ==========================================
@@ -559,19 +556,17 @@ Input: nums = [-1,0,3,5,9,12], target = 9
 Output: 4
 */
 function binarySearch(nums, target) {
-let left = 0;
-let right = nums.length -1;
-while (left <= right) {
-    const mid = Math.floor ((left + right) / 2);
-    if (nums[mid] === target) {
-        return mid;
+    let left = 0;
+    let right = nums.length -1;
+    while (left <= right ) {
+        let mid = Math.floor((left + right) / 2)
+        if (nums[mid] === target) {
+            return mid;
+        }
+        else if (nums[mid] < target) {
+            left = mid + 1;
+        }
+        else right = mid -1;
     }
-    if (nums[mid] < target) {
-        left = mid + 1;
-    }
-    else {
-        right = mid -1;
-    }
-}
-return -1;
+    return -1;
 }
