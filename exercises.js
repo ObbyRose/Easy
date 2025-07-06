@@ -62,15 +62,18 @@ function classifyPackage(weight) {
  * Output: true
  */
 function areBlocksInterlocked(blockA, blockB) {
-    if (!Array.isArray(blockA) || !Array.isArray(blockB)) return false;
-    if (blockA.length !== blockB.length) return false;
-    let hasInterlock = false;
+    let canInterlock = false;
+    if (!Array.isArray(blockA) || !Array.isArray (blockB)) return false;
+    if (blockA.length !== blockB.length) return false
     for (let i = 0; i < blockA.length; i++) {
-        if (blockA[i] === 1 && blockB[i] === 1) return false;
-        if (blockA[i] === 1 || blockB[i] === 1) hasInterlock = true;
-    }
-    return hasInterlock;
-}
+        if(blockA[i] === 1 && blockB[i] === 1) return false
+        if (blockA[i] !== blockB[i]) {
+            canInterlock = true;
+        }
+    };
+    return canInterlock;
+};
+console.log(areBlocksInterlocked([1,0,1] , [0,1,1]));
 // ==============================
 // 1. Two Sum
 // ==============================
@@ -89,24 +92,24 @@ function twoSum(nums, target) {
     for(let i = 0; i < nums.length; i++) {
         for (let j = i + 1; j < nums.length; j++){
             if (nums[i] + nums[j] === target) {
-                indices.push(i, j);
-                return indices;
+                return [i,j];
             }
         }
+        return [];
     }
 }
 // optimal answer
 function twoSum(nums, target) {
-    const map = new Map(); 
+    const map = new Map;
     
-
-    for (let i = 0; i < nums.length; i++) {
-        const complement = target - nums[i];
+    for (let i = 0; i < nums.length; i++){
+        let complement = target - nums[i]
         if (map.has(complement)) {
-            return [map.get(complement), i];
+            return [map.get(complement), i]
         }
-        map.set(nums[i], i);
-    }
+        map.set(nums[i], i)
+    };
+    return []
 }
 
 
