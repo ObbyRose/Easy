@@ -180,13 +180,15 @@ function twoSum(nums, target) {
     */
     function removeDuplicates(nums) {
         if (nums.length === 0) return 0;
-        let i = 0;
-        for (let j = 1; j < nums.length; j++ ){
-            if (nums[j] !== nums[i] ){
-                nums[++i] = nums[j];
+        let uniqueIndex = 0;
+        
+        for (let i = 1; i < nums.length; i++) {
+            if (nums[i] !== nums[uniqueIndex]) {
+                uniqueIndex++;
+                nums[uniqueIndex] = nums[i];
             }
         }
-        return i+1 
+        return uniqueIndex + 1;
     }
     
     
@@ -202,17 +204,19 @@ function twoSum(nums, target) {
     Output: 5
     */
     function maxProfit(prices) {
-        let minprice = Infinity;
-        let maxprofit = 0;
+        let minPrice = Infinity;
+        let maxProfit = 0;
+
         for (let i = 0; i < prices.length; i++) {
-            if (prices[i] < minprice) {
-                minprice = prices[i];
-            }
-            else if (prices[i] - minprice > maxprofit) {
-                maxprofit = prices[i] - minprice;
-            }
-        } 
-        return maxprofit;
+            if(prices[i] < minPrice ){
+                minPrice = prices[i];
+            };
+            const potentialProfit = prices[i] - minPrice;
+            if (potentialProfit > maxProfit){
+                maxProfit = potentialProfit;
+            };
+        }
+        return maxProfit;
     }
     
     
@@ -415,13 +419,21 @@ Output: ["1","2","Fizz","4","Buzz"]
 */
 function fizzBuzz(n) {
     let arr = [];
-    for (let i = 1; i <=n; i++) {
-        if (i % 3 === 0 && i % 5 === 0){
-            arr.push("FizzBuzz");
+    for (let i = 1; i <= n; i++) {
+        if (i % 3 === 0 && i % 5 === 0) {
+            arr.push ("FizzBuzz");
         }
-
+        else if (i % 3 === 0 ) {
+            arr.push ("Fizz");
+        }
+        else if ( i % 5 === 0 ) {
+            arr.push ("Buzz");
+        }
+        else arr.push (`${i}`);
     }
-}
+    return arr
+};
+
 
 // ==========================================
 // 5. Count and Say
