@@ -37,17 +37,19 @@ const threshold = {
 }
 
 function classifyPackage(weight) {
-    if (typeof weight !== 'number' || isNaN(weight)) {
-        return 'Invalid weight';
+    if (typeof weight !== "number" || isNaN(weight)) {
+        return "Please enter a valid number";
     }
+
     if (weight > threshold.medium) {
-        return 'Heavy';
+        return "Heavy";
     } else if (weight > threshold.light) {
-        return 'Medium';
+        return "Medium";
     } else {
-        return 'Light';
+        return "Light";
     }
 }
+
 
 /**
  * ===================================================
